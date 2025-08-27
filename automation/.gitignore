@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# Ambiente virtual
+.venv/
+
+# Config local
+.env
+
+# Sistema/IDE
+.DS_Store
+*.log
