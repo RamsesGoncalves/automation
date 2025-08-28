@@ -1,5 +1,7 @@
+from nt import scandir
 import os
 from dataclasses import dataclass
+from turtle import Screen
 from dotenv import load_dotenv
 
 
@@ -72,10 +74,16 @@ class Locators:
     SCREEN_FIVE_BUTTON_INPUT_XPATH = "//button[@class='list-group-item list-group-item-action']"
     SCREEN_FIVE_PROCEED_XPATH = "//button[@class='btn btn-primary mr-2']"
 
-    SCREEN_SIX_INPUT_XPATH = "//input[@type='text']" # informação 12
-    SCREEN_SIX_PROCEED_XPATH = "//button[@class='btn btn-success']"
+    SCREEN_SIX_INPUT_XPATH = "//label[normalize-space(.)='Ambiente:']/following-sibling::div[1]//input" # informação 9
+    SCREEN_SIX_INPUT_TYPE_XPATH = "//label[normalize-space(.)='Tipo Exposição:']/following-sibling::div[1]//input" # informação 10
+    SCREEN_SIX_INPUT_GATEWAY_XPATH = "//label[normalize-space(.)='Gateway:']/following-sibling::div[1]//input" # informação 11
+    SCREEN_SIX_BUTTON_INPUT_XPATH = "//button[@class='list-group-item list-group-item-action']"
+    SCREEN_SIX_PROCEED_XPATH = "//button[@class='btn btn-primary mr-2']"
+    
+    SCREEN_SEVEN_INPUT_XPATH = "//input[@type='text']" # informação 12
+    SCREEN_SEVEN_PROCEED_XPATH = "//button[@class='btn btn-success']"
 
-    SCREEN_SEVEN_PROCEED_XPATH = "//button[@class='btn btn-danger me-2']"
+    SCREEN_EIGHT_PROCEED_XPATH = "//button[@class='btn btn-danger me-2']"
 
 
 settings = Settings()

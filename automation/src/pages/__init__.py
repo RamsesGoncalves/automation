@@ -5,6 +5,7 @@ from .screen_four import ScreenFour
 from .screen_five import ScreenFive
 from .screen_six import ScreenSix
 from .screen_seven import ScreenSeven
+from .screen_eight import ScreenEight
 
 __all__ = [
 	"ScreenOne",
@@ -14,4 +15,5 @@ __all__ = [
 	"ScreenFive",
 	"ScreenSix",
 	"ScreenSeven",
+	"ScreenEight",
 ]

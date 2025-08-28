@@ -12,16 +12,62 @@ class ScreenSix:
 		self.driver = driver
 		self.wait = WebDriverWait(driver, settings.explicit_wait)
 
-	def run(self, value: str) -> None:
-		input_el = self.wait.until(
+	def run(self, ambiente_value: str, tipo_value: str, gateway_value: str) -> None:
+		# Ambiente
+		amb_input = self.wait.until(
 			EC.visibility_of_element_located((By.XPATH, Locators.SCREEN_SIX_INPUT_XPATH))
 		)
-		highlight_element(self.driver, input_el)
+		highlight_element(self.driver, amb_input)
 		sleep_if_display_mode()
-		input_el.clear()
-		input_el.send_keys(value)
+		amb_input.clear()
+		amb_input.send_keys(ambiente_value)
 		sleep_if_display_mode()
 
+		suggestion_btn = self.wait.until(
+			EC.element_to_be_clickable((By.XPATH, Locators.SCREEN_SIX_BUTTON_INPUT_XPATH))
+		)
+		highlight_element(self.driver, suggestion_btn)
+		sleep_if_display_mode()
+		suggestion_btn.click()
+		sleep_if_display_mode()
+
+		# Tipo Exposição
+		tipo_input = self.wait.until(
+			EC.visibility_of_element_located((By.XPATH, Locators.SCREEN_SIX_INPUT_TYPE_XPATH))
+		)
+		highlight_element(self.driver, tipo_input)
+		sleep_if_display_mode()
+		tipo_input.clear()
+		tipo_input.send_keys(tipo_value)
+		sleep_if_display_mode()
+
+		suggestion_btn = self.wait.until(
+			EC.element_to_be_clickable((By.XPATH, Locators.SCREEN_SIX_BUTTON_INPUT_XPATH))
+		)
+		highlight_element(self.driver, suggestion_btn)
+		sleep_if_display_mode()
+		suggestion_btn.click()
+		sleep_if_display_mode()
+
+		# Gateway
+		gate_input = self.wait.until(
+			EC.visibility_of_element_located((By.XPATH, Locators.SCREEN_SIX_INPUT_GATEWAY_XPATH))
+		)
+		highlight_element(self.driver, gate_input)
+		sleep_if_display_mode()
+		gate_input.clear()
+		gate_input.send_keys(gateway_value)
+		sleep_if_display_mode()
+
+		suggestion_btn = self.wait.until(
+			EC.element_to_be_clickable((By.XPATH, Locators.SCREEN_SIX_BUTTON_INPUT_XPATH))
+		)
+		highlight_element(self.driver, suggestion_btn)
+		sleep_if_display_mode()
+		suggestion_btn.click()
+		sleep_if_display_mode()
+
+		# Prosseguir
 		proceed_btn = self.wait.until(
 			EC.element_to_be_clickable((By.XPATH, Locators.SCREEN_SIX_PROCEED_XPATH))
 		)

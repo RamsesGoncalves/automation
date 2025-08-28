@@ -7,23 +7,14 @@ from ..config import Locators, settings
 from ..utils import highlight_element, sleep_if_display_mode
 
 
-class ScreenSeven:
+class ScreenEight:
 	def __init__(self, driver: WebDriver) -> None:
 		self.driver = driver
 		self.wait = WebDriverWait(driver, settings.explicit_wait)
 
-	def run(self, value: str) -> None:
-		input_el = self.wait.until(
-			EC.visibility_of_element_located((By.XPATH, Locators.SCREEN_SEVEN_INPUT_XPATH))
-		)
-		highlight_element(self.driver, input_el)
-		sleep_if_display_mode()
-		input_el.clear()
-		input_el.send_keys(value)
-		sleep_if_display_mode()
-
+	def run(self) -> None:
 		proceed_btn = self.wait.until(
-			EC.element_to_be_clickable((By.XPATH, Locators.SCREEN_SEVEN_PROCEED_XPATH))
+			EC.element_to_be_clickable((By.XPATH, Locators.SCREEN_EIGHT_PROCEED_XPATH))
 		)
 		highlight_element(self.driver, proceed_btn)
 		sleep_if_display_mode()

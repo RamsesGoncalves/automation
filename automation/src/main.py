@@ -1,3 +1,4 @@
+import time
 from selenium.common.exceptions import TimeoutException
 
 from .config import settings, validate_config
@@ -10,13 +11,15 @@ from .pages import (
 	ScreenFive,
 	ScreenSix,
 	ScreenSeven,
+	ScreenEight,
 )
 from .csv_loader import load_csv_rows
 
 
 # Mapeamento de colunas (0-based) conforme comentários de informação no config:
 # informação 1 -> coluna 0, informação 4 -> coluna 3, informação 5 -> coluna 4, informação 6 -> coluna 5,
-# informação 7 -> coluna 6, informação 8 -> coluna 7, informação 12 -> coluna 11
+# informação 7 -> coluna 6, informação 8 -> coluna 7, informação 9 -> coluna 8, informação 10 -> coluna 9,
+# informação 11 -> coluna 10, informação 12 -> coluna 11
 COLUMN_MAP = {
 	1: 0,
 	4: 3,
@@ -24,6 +27,9 @@ COLUMN_MAP = {
 	6: 5,
 	7: 6,
 	8: 7,
+	9: 8,
+	10: 9,
+	11: 10,
 	12: 11,
 }
 
@@ -36,10 +42,14 @@ def run_for_row(driver, row_values):
 	val_info7 = row_values[COLUMN_MAP[7]] if len(row_values) > COLUMN_MAP[7] else ""
 	val_info1 = row_values[COLUMN_MAP[1]] if len(row_values) > COLUMN_MAP[1] else ""
 	val_info8 = row_values[COLUMN_MAP[8]] if len(row_values) > COLUMN_MAP[8] else ""
+	val_info9 = row_values[COLUMN_MAP[9]] if len(row_values) > COLUMN_MAP[9] else ""
+	val_info10 = row_values[COLUMN_MAP[10]] if len(row_values) > COLUMN_MAP[10] else ""
+	val_info11 = row_values[COLUMN_MAP[11]] if len(row_values) > COLUMN_MAP[11] else ""
 	val_info12 = row_values[COLUMN_MAP[12]] if len(row_values) > COLUMN_MAP[12] else ""
 
 	# Abre URL no início de cada execução
 	driver.get(settings.url)
+	time.sleep(30)  # aguarda 1 minuto antes de iniciar as interações
 
 	print("Tela 1...")
 	ScreenOne(driver).fill_and_proceed(val_info4 or settings.input_one_value)
@@ -60,10 +70,17 @@ def run_for_row(driver, row_values):
 	ScreenFive(driver).run(val_info8 or settings.input_five_value)
 
 	print("Tela 6...")
-	ScreenSix(driver).run(val_info12 or settings.input_six_value)
+	ScreenSix(driver).run(
+		val_info9 or settings.input_six_value,
+		val_info10 or settings.input_six_value,
+		val_info11 or settings.input_six_value,
+	)
 
 	print("Tela 7...")
-	ScreenSeven(driver).run()
+	ScreenSeven(driver).run(val_info12 or settings.input_six_value)
+
+	print("Tela 8...")
+	ScreenEight(driver).run()
 
 
 def run() -> None:
