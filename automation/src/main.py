@@ -58,7 +58,8 @@ def run_for_row(driver, row_values):
 	ScreenTwo(driver).fill_and_proceed(val_info5 or settings.input_two_value)
 
 	print("Tela 3...")
-	ScreenThree(driver).run(val_info6 or settings.input_three_value)
+	flow_value = val_info6 or settings.input_three_value
+	ScreenThree(driver).run(flow_value)
 
 	print("Tela 4...")
 	ScreenFour(driver).run(
@@ -66,15 +67,22 @@ def run_for_row(driver, row_values):
 		val_info1 or settings.input_four_validate_value,
 	)
 
-	print("Tela 5...")
-	ScreenFive(driver).run(val_info8 or settings.input_five_value)
+	# Decisão de fluxo com base na Tela 3 (informação 6)
+	normalized_flow = (flow_value or "").strip().lower()
+	is_negative_flow = normalized_flow in ("não", "nao", "n")
 
-	print("Tela 6...")
-	ScreenSix(driver).run(
-		val_info9 or settings.input_six_value,
-		val_info10 or settings.input_six_value,
-		val_info11 or settings.input_six_value,
-	)
+	if not is_negative_flow:
+		print("Tela 5...")
+		ScreenFive(driver).run(val_info8 or settings.input_five_value)
+
+		print("Tela 6...")
+		ScreenSix(driver).run(
+			val_info9 or settings.input_six_value,
+			val_info10 or settings.input_six_value,
+			val_info11 or settings.input_six_value,
+		)
+	else:
+		print("Fluxo 'não' na Tela 3: pulando telas 5 e 6...")
 
 	print("Tela 7...")
 	ScreenSeven(driver).run(val_info12 or settings.input_six_value)

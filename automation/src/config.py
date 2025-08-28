@@ -83,7 +83,7 @@ class Locators:
     SCREEN_SEVEN_INPUT_XPATH = "//input[@type='text']" # informação 12
     SCREEN_SEVEN_PROCEED_XPATH = "//button[@class='btn btn-success']"
 
-    SCREEN_EIGHT_PROCEED_XPATH = "//button[@class='btn btn-danger me-2']"
+    SCREEN_EIGHT_PROCEED_XPATH = "//button[@class='btn btn-danger me-2']" # "//button[@class='btn btn-primary']" 
 
 
 settings = Settings()

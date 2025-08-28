@@ -101,3 +101,18 @@ automation/
       screen_two.py
       screen_three.py
 ```
+
+## Isso aqui é elite
+1. Crie e ative um ambiente virtual:
+   ```powershell
+   python -m venv .venv
+   .\.venv\Scripts\Activate.ps1
+   ```
+2. Inicie o Chrome em modo de depuração remota:
+   ```powershell
+   & "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" --remote-debugging-port=9222 --user-
+   ```
+3. Execute a automação:
+   ```powershell
+   python -m src.main
+   ```
