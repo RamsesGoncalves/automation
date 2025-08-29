@@ -51,6 +51,9 @@ class Settings:
 
 class Locators:
     # Preencha os XPaths abaixo. Ex.: "//input[@id='login']"
+
+    SCREEN_ZERO_INPUT_XPATH = "//a[normalize-space(.)='Criar']" # informação 1
+
     SCREEN_ONE_INPUT_XPATH = "//input[@type='text']" # informação 4
     SCREEN_ONE_BUTTON_INPUT_XPATH = "//button[@class='list-group-item list-group-item-action']"
     SCREEN_ONE_PROCEED_XPATH = "//button[@class='btn btn-primary mr-2']"
@@ -84,6 +87,8 @@ class Locators:
     SCREEN_SEVEN_PROCEED_XPATH = "//button[@class='btn btn-success']"
 
     SCREEN_EIGHT_PROCEED_XPATH = "//button[@class='btn btn-danger me-2']" # "//button[@class='btn btn-primary']" 
+
+    SCREEN_NINE_BUTTON_XPATH = "//a[normalize-space(.)='Consultar']" # informação 13
 
 
 settings = Settings()

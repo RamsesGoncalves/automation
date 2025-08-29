@@ -4,6 +4,7 @@ from selenium.common.exceptions import TimeoutException
 from .config import settings, validate_config
 from .driver import build_driver
 from .pages import (
+	ScreenZero,
 	ScreenOne,
 	ScreenTwo,
 	ScreenThree,
@@ -12,6 +13,7 @@ from .pages import (
 	ScreenSix,
 	ScreenSeven,
 	ScreenEight,
+	ScreenNine,
 )
 from .csv_loader import load_csv_rows
 
@@ -47,9 +49,9 @@ def run_for_row(driver, row_values):
 	val_info11 = row_values[COLUMN_MAP[11]] if len(row_values) > COLUMN_MAP[11] else ""
 	val_info12 = row_values[COLUMN_MAP[12]] if len(row_values) > COLUMN_MAP[12] else ""
 
-	# Abre URL no início de cada execução
-	driver.get(settings.url)
-	time.sleep(30)  # aguarda 1 minuto antes de iniciar as interações
+	# Tela 0 - entrar no fluxo de criação
+	print("Tela 0...")
+	ScreenZero(driver).run()
 
 	print("Tela 1...")
 	ScreenOne(driver).fill_and_proceed(val_info4 or settings.input_one_value)
@@ -90,6 +92,10 @@ def run_for_row(driver, row_values):
 	print("Tela 8...")
 	ScreenEight(driver).run()
 
+	# Tela 9 - voltar para a tela de consulta/listagem para próxima iteração
+	print("Tela 9...")
+	ScreenNine(driver).run()
+
 
 def run() -> None:
 	validate_config()
@@ -98,26 +104,15 @@ def run() -> None:
 		print("CSV sem linhas (após cabeçalho). Nada a executar.")
 		return
 
-	print(f"Foram encontradas {len(rows)} linha(s) no CSV (excluindo cabeçalho).")
-	choice = input("Executar todas as linhas? (s/N) ").strip().lower()
+	print(f"Foram encontradas {len(rows)} linha(s) no CSV (excluindo cabeçalho). Executando todas as linhas em sequência na mesma aba...")
 	indices = list(range(len(rows)))
-	if choice not in ("s", "sim", "y", "yes"):
-		while True:
-			idx_str = input(f"Informe o número da linha (1..{len(rows)}): ").strip()
-			if not idx_str.isdigit():
-				print("Digite um número válido.")
-				continue
-			idx = int(idx_str)
-			if 1 <= idx <= len(rows):
-				indices = [idx - 1]
-				break
-			print("Fora do intervalo. Tente novamente.")
 
 	driver = build_driver(settings)
 	try:
-		# Se anexando a um navegador já aberto, pode ser útil abrir nova aba só uma vez
-		if settings.attach_to_browser and settings.open_new_tab:
-			driver.switch_to.new_window("tab")
+		# Navega para a URL apenas uma vez; as iterações reutilizam a mesma aba
+		driver.get(settings.url)
+		# Espera inicial para o app carregar
+		time.sleep(30)
 
 		for i in indices:
 			print(f"\n=== Executando linha {i+1}/{len(rows)} ===")
